@@ -40,6 +40,13 @@ int main()
             do {
                 std::cout << "SEARCH >> ";
                 std::cin >> index;
+                while(!std::cin.good()) {
+                    std::cout << "Please enter a valid integer" << std::endl;
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "SEARCH >> ";
+                    std::cin >> index;
+                }
                 condition = !(index >= 0 && index <= contacts.size());
                 if (condition)
                     std::cout << "Please enter a valid index" << std::endl;
@@ -83,7 +90,7 @@ int main()
                 phonebook.removeContact(index);
             } else {
                 std::string phoneNumber;
-                std::cin >> phoneNumber;
+                std::getline(std::cin >> std::ws, phoneNumber);
                 phonebook.removeContact(phoneNumber);
             }
         } else if (command == "BOOKMARK") {
